@@ -56,3 +56,8 @@ Once the servers are up and running, the unit test can be ran with:
 ```bash
 go test -v
 ```
+
+## Credits
+This tool has been created by Viktor Chuchurski and Alessandro Cotto of [Doyensec LLC](https://www.doyensec.com) during research time. 
+
+![alt text](https://doyensec.com/images/logo.svg "Doyensec Logo")
