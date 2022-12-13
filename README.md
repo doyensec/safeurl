@@ -1,6 +1,6 @@
 # `safeurl`
 
-A Go library created to helps developers protect their applications from [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery) attacks. It implements a `safeurl.Client` wrapper around Go's native `net/http.Client` and performs validation on the supplied request data against the supplied allow/block lists. It also implements mitigation for [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks.
+A Go library created to helps developers protect their applications from [Server Side Request Forgery](https://owasp.org/www-community/attacks/Server_Side_Request_Forgery) attacks. It implements a `safeurl.Client` wrapper around Go's native `net/http.Client` and performs validation on the incoming request against the configured allow and block lists. It also implements mitigation for [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks.
 
 ### Configuration options
 The `safeurl.Client` can be configured through the `safeurl.Config` struct. It enables configuration of the following options:
