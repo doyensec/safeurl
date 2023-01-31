@@ -1,6 +1,7 @@
 package safeurl
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net"
 	"net/http"
@@ -27,6 +28,8 @@ type configBuilder struct {
 	isDebugLoggingEnabled bool
 
 	inTestMode bool
+
+	tlsConfig *tls.Config
 }
 
 type Config struct {
@@ -52,6 +55,8 @@ type Config struct {
 
 	IsDebugLoggingEnabled bool
 	InTestMode            bool
+
+	TlsConfig *tls.Config
 }
 
 func GetConfigBuilder() *configBuilder {
@@ -68,6 +73,7 @@ func GetConfigBuilder() *configBuilder {
 
 		isDebugLoggingEnabled: false,
 		inTestMode:            false,
+		tlsConfig:             nil,
 	}
 }
 
@@ -141,6 +147,11 @@ func (cb *configBuilder) EnableTestMode(enable bool) *configBuilder {
 	return cb
 }
 
+func (cb *configBuilder) SetTlsConfig(tlsConfig *tls.Config) *configBuilder {
+	cb.tlsConfig = tlsConfig
+	return cb
+}
+
 func (cb *configBuilder) Build() *Config {
 	wc := &Config{
 		Timeout:       cb.timeout,
@@ -152,6 +163,7 @@ func (cb *configBuilder) Build() *Config {
 
 		IsDebugLoggingEnabled: cb.isDebugLoggingEnabled,
 		InTestMode:            cb.inTestMode,
+		TlsConfig:             cb.tlsConfig,
 	}
 
 	if cb.allowedSchemes == nil {

@@ -1,6 +1,7 @@
 package safeurl
 
 import (
+	"crypto/tls"
 	"fmt"
 	"testing"
 )
@@ -38,6 +39,20 @@ func TestBlockedIP(t *testing.T) {
 			t.Errorf("client returned incorrect error: %v", err)
 		}
 	}
+}
+
+func TestTLSConfig(t *testing.T) {
+	tls_config := &tls.Config{
+		InsecureSkipVerify: true,
+	}
+	cfg := GetConfigBuilder().SetTlsConfig(tls_config).Build()
+	client := Client(cfg)
+
+	_, err := client.Get("https://boli-blog.pl/")
+	if err != nil {
+		t.Errorf("Failed to make insecure connection %v", err)
+	}
+
 }
 
 func TestBlockCIDRRange(t *testing.T) {
