@@ -48,7 +48,7 @@ func TestTLSConfig(t *testing.T) {
 	cfg := GetConfigBuilder().SetTlsConfig(tls_config).Build()
 	client := Client(cfg)
 
-	_, err := client.Get("https://boli-blog.pl/")
+	_, err := client.Get("https://expired.badssl.com/")
 	if err != nil {
 		t.Errorf("Failed to make insecure connection %v", err)
 	}
