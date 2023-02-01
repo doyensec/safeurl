@@ -437,3 +437,24 @@ func TestInternalIPAreAlwaysBlocked(t *testing.T) {
 	}
 
 }
+
+func TestInvalidHostValidation(t *testing.T) {
+	cfg := GetConfigBuilder().Build()
+	client := Client(cfg)
+
+	urls := []string{"http://[]", "http://[]:123", "http://:123"}
+
+	for _, url := range urls {
+		_, err := client.Get(url)
+		if err == nil {
+			t.Errorf("invalid host from url => %v was accepted. client didn't not return an error", err)
+		}
+
+		err = unwrap(err)
+		_, ok := err.(*InvalidHostError)
+		if !ok {
+			t.Errorf("client returned incorrect error: %v", err)
+		}
+	}
+
+}

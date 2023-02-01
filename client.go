@@ -101,6 +101,10 @@ func isSchemeValid(parsed *urllib.URL, config *Config, debugLogFunc func(string)
 
 func isHostValid(parsed *urllib.URL, config *Config, debugLogFunc func(string)) error {
 	host := parsed.Hostname()
+	if host == "" {
+		debugLogFunc("empty host received")
+		return &InvalidHostError{host: ""}
+	}
 
 	if config.AllowedHosts != nil && !isAllowedHost(host, config.AllowedHosts) {
 		debugLogFunc(fmt.Sprintf("disallowed host: %s", host))
@@ -252,6 +256,14 @@ type AllowedSchemeError struct {
 
 func (e *AllowedSchemeError) Error() string {
 	return fmt.Sprintf("scheme: %v not found in allowlist", e.scheme)
+}
+
+type InvalidHostError struct {
+	host string
+}
+
+func (e *InvalidHostError) Error() string {
+	return fmt.Sprintf("host: %v is not valid", e.host)
 }
 
 type AllowedHostError struct {
