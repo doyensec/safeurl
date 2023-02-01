@@ -124,7 +124,7 @@ type WrappedClient struct {
 }
 
 func Client(config *Config) *WrappedClient {
-	tlsConfig := &tls.Config{}
+	tlsConfig := config.TlsConfig
 
 	var resolver *net.Resolver = nil
 	if config.InTestMode {
