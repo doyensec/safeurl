@@ -38,6 +38,8 @@ func TestBlockedIP(t *testing.T) {
 		"[3fff:4e1:6fb3:f8a2:7948:ff06:258:486]",
 		// ipv6 dummy prefix
 		"[100::1:a442:286a:836e:da87]",
+		// azure wireserver (public address, platform-internal on azure vms)
+		"168.63.129.16", "[::ffff:168.63.129.16]",
 	}
 
 	for _, ip := range ips {
