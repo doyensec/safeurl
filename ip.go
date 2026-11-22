@@ -43,6 +43,8 @@ var privateNetworks = []net.IPNet{
 	parseCIDR("2001:20::/28"),   /* ORCHIDv2 - RFC7343 */
 	parseCIDR("3fff::/20"),      /* Documentation */
 	parseCIDR("100:0:0:1::/64"), /* Dummy IPv6 Prefix */
+	// cloud platform addresses (public address space, not in the IANA special-purpose registries)
+	parseCIDR("168.63.129.16/32"), /* Azure WireServer, platform DNS, DHCP and health probes - https://learn.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16 */
 }
 
 func parseCIDR(network string) net.IPNet {
